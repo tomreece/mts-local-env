@@ -1,0 +1,18 @@
+# Below is a group WYSIWYGDisabledSuite_1 test
+NewProductsListWidget
+# Below is a skipped test
+PayPalSmartButtonInCheckoutPage
+# Below is a storefront test
+StorefrontConfigurableProductListView
+# Below is a test that doesn't exist
+StorefrontMissingTest
+# Below is an admin test
+AdminWatermarkUpload
+# Below is a category test
+AdminCreateCategory
+# Below is a product test
+StorefrontAddProductsToCartFromWishlistUsingSidebar
+# Below is an elasticsearch test
+ProductQuickSearchUsingElasticSearch
+# Below is an advanced search test
+AdvanceCatalogSearchDownloadableByName

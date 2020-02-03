@@ -1,0 +1,27 @@
+[mysqld]
+## REQUIRED
+# Use UTF8
+collation-server=utf8_general_ci
+character-set-server=utf8
+
+## LEGACY
+# See MAGETWO-97241 and MAGETWO-35353 
+explicit_defaults_for_timestamp=1
+
+## Performance
+# Disable performance monitoring
+performance_schema=OFF
+# Reduce query cache size from default
+#query_cache_size=4M
+# Reduce buffer pool size from default
+innodb_buffer_pool_size=128M
+# Reduce AriaDB memory from default
+aria_pagecache_buffer_size=8M
+# Reduce MyISAM memory from default
+key_buffer_size=8M
+# Kill database connections after 3 hours
+#wait_timeout=10800
+# Use single data file - NEEDS REVIEW FOR EPHEMERAL CONTAINERS  
+# innodb_file_per_table=OFF
+# Flush transaction log every second vs every commit
+innodb_flush_log_at_trx_commit=0
