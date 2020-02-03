@@ -1,5 +1,9 @@
 # m2-local-env
 
+
+## THIS CODE ORIGINATED FROM magento-mts/mts-local-env
+
+
 These are the steps needed to run Magento in an 8 container configuration using Magento Docker Cloud images.
 
 These steps were ran on an Ubuntu 18.04 VirtualBox VM `ubuntu/bionic64` and EC2 instance
