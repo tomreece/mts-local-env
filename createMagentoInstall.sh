@@ -11,9 +11,9 @@ docker-compose exec -T fpm bash /tmp/files/perform_install.sh
 CHECK_EXIT=1
 COUNTER=1
 MAX=5
-echo -e "\e[34mDumping Magento DB\e[0m"
+echo -e "--- Dumping Magento DB ---"
 while [ ${CHECK_EXIT} -ne 0 ] && [ ${COUNTER} -le ${MAX} ]; do
-  echo "Attempt ${COUNTER}/${MAX}"
+  echo "--- Attempt ${COUNTER}/${MAX} ---"
   sleep "$((2**COUNTER))"
   docker-compose exec -T mariadb bash -c 'mysqldump -u root magento > /tmp/html/magentodump.sql'
   CHECK_EXIT=$?
@@ -26,4 +26,4 @@ docker-compose down -v
 # Replace index.php with our custom pcov enabled index.php
 cp index.php html/index.php
 tar -cf install.tar html
-echo -e "\e[34mMagento install.tar file ready\e[0m"
+echo -e "--- Magento install.tar file ready ---"
