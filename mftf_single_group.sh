@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e ${GROUP_TO_RUN}
+echo -e ${GROUP_NUMBER}
 
 # Setup
 docker-compose down -v > /dev/null 2>&1
@@ -13,6 +13,6 @@ sleep 5s;
 bash restoredb.sh
 
 # Run a specific group
-docker-compose exec -T -e group=${GROUP_TO_RUN} fpm bash /tmp/files/perform_tests.sh
+docker-compose exec -T -e group=group${GROUP_NUMBER} fpm bash /tmp/files/perform_tests.sh
 
 echo -e "\e[95mDone\e[0m"
