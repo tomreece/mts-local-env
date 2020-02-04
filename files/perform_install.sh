@@ -37,9 +37,9 @@ php bin/magento -n config:set admin/security/admin_account_sharing 1
 php bin/magento -n indexer:reindex
 cd ${magento_path}/dev/tests/acceptance || exit
 # build MFTF parallel groups
-echo "build project"
+echo "--- Build Project ---"
 ${magento_path}/vendor/bin/mftf build:project --MAGENTO_BASE_URL http://magento.local/ 
-echo "generate tests"
+echo "--- Generate Tests ---"
 ${magento_path}/vendor/bin/mftf generate:tests --config parallel
 # configure MFTF
 sed -i "s#%MAGENTO_BASE_URL%#http://magento.local/#g" ${magento_path}/dev/tests/acceptance/tests/functional.suite.yml

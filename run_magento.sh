@@ -8,19 +8,19 @@ shopt -s nocasematch
 clear
 
 if [[ "X${ARG}" != "Xstop" ]] &&  [[ "X${ARG}" != "Xstart" ]] &&  [[ "X${ARG}" != "Xrestart" ]]; then
-  echo "Please specify [stop/start/restart] argument"
-  echo "Stop and destroy all containers - [$0 stop]"
-  echo "Restore from install.tar and start all containers - [$0 start]"
+  echo "--- Please specify [stop/start/restart] argument ---"
+  echo "--- Stop and destroy all containers - [$0 stop] ---"
+  echo "--- Restore from install.tar and start all containers - [$0 start] ---"
   exit 1
 fi
 
 if [[ ${ARG} == "stop" ]] || [[ "X${ARG}" == "Xrestart" ]]; then
-  echo -e "\e[34;1mStopping containers\e[0m"
+  echo -e "--- Stopping containers ---"
   docker-compose down -v
 fi
 
 if [[ ${ARG} == "start" ]] || [[ "X${ARG}" == "Xrestart" ]]; then
-  echo -e "\e[34;1mRestoring and starting containers\e[0m"
+  echo -e "--- Restoring and starting containers ---"
   docker-compose down -v > /dev/null 2>&1
   rm -rf html > /dev/null 2>&1
   tar -xf install.tar
@@ -32,4 +32,4 @@ if [[ ${ARG} == "start" ]] || [[ "X${ARG}" == "Xrestart" ]]; then
 fi
 
 shopt -u nocasematch
-echo -e "\e[95mDone\e[0m"
+echo -e "--- Done ---"

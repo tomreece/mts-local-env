@@ -8,7 +8,7 @@ NODE_VER=8
 docker-compose down -v > /dev/null 2>&1
 rm -rf html > /dev/null 2>&1
 tar -xf install.tar
-echo -e "\e[36mStarting docker containers\e[0m"
+echo -e "--- Starting docker containers ---"
 docker-compose up -d
 docker ps -a
 sleep 5s;
@@ -28,4 +28,4 @@ docker-compose exec -T fpm bash -c 'cd /app; echo "Node: `node --version`"; echo
 # Copy reports to allure-report folder
 docker-compose exec -T fpm bash -c 'cp /app/var/log/js-unit/*.xml /tmp/allure-report'
 
-echo -e "\e[95mDone\e[0m"
+echo -e "--- Done ---"
