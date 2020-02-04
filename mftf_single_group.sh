@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "--- Running Group ${GROUP_NUMBER} ---"
+
 # Setup Magento
 docker-compose down -v > /dev/null 2>&1
 rm -rf html > /dev/null 2>&1
