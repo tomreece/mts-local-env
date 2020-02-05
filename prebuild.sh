@@ -13,5 +13,10 @@ else
     git clone --depth=1 -b ${BRANCH_TAG} https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${ORG}/${REPO} html
 fi
 
+# Use custom pcov enabled index.php files. I think  only pub/index matters, but doing both just
+# to be safe.
+cp index.php html/index.php
+cp pubindex.php html/pub/index.php
+
 rm -rf html/.git
 chown -R 33:33 html

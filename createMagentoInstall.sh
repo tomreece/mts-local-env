@@ -23,7 +23,5 @@ done
 rm -f install.tar > /dev/null 2>&1
 # Stop containers
 docker-compose down -v
-# Replace index.php with our custom pcov enabled index.php
-cp index.php html/index.php
 tar -cf install.tar html
 echo -e "--- Magento install.tar file ready ---"
