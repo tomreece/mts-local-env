@@ -17,6 +17,7 @@ fi
 # to be safe.
 cp index.php html/index.php
 cp pubindex.php html/pub/index.php
+mkdir html/pub/cov
 
 rm -rf html/.git
 chown -R 33:33 html

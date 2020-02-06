@@ -35,7 +35,7 @@ services:
       - './html:/tmp/html'
       - './server.cnf:/etc/mysql/conf.d/server.cnf'
   fpm:
-    image: 'magento/magento-cloud-docker-php:7.3-fpm'
+    image: 'magento/magento-cloud-docker-php:7.3-fpm-1.1'
     container_name: fpm
     environment:
       - PHP_MEMORY_LIMIT=2048M
