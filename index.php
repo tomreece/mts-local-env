@@ -1,25 +1,16 @@
 <?php
 /**
- * Application entry point
- *
- * Example - run a particular store or website:
- * --------------------------------------------
- * require __DIR__ . '/app/bootstrap.php';
- * $params = $_SERVER;
- * $params[\Magento\Store\Model\StoreManager::PARAM_RUN_CODE] = 'website2';
- * $params[\Magento\Store\Model\StoreManager::PARAM_RUN_TYPE] = 'website';
- * $bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params);
- * \/** @var \Magento\Framework\App\Http $app *\/
- * $app = $bootstrap->createApplication(\Magento\Framework\App\Http::class);
- * $bootstrap->run($app);
- * --------------------------------------------
+ * Public alias for the application entry point
  *
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
 
+use Magento\Framework\App\Bootstrap;
+use Magento\Framework\App\Filesystem\DirectoryList;
+
 try {
-    require __DIR__ . '/app/bootstrap.php';
+    require __DIR__ . '/../app/bootstrap.php';
 } catch (\Exception $e) {
     echo <<<HTML
 <div style="font:12px/1.35em arial, helvetica, sans-serif;">
@@ -33,11 +24,22 @@ HTML;
     exit(1);
 }
 
+$params = $_SERVER;
+$params[Bootstrap::INIT_PARAM_FILESYSTEM_DIR_PATHS] = array_replace_recursive(
+    $params[Bootstrap::INIT_PARAM_FILESYSTEM_DIR_PATHS] ?? [],
+    [
+        DirectoryList::PUB => [DirectoryList::URL_PATH => ''],
+        DirectoryList::MEDIA => [DirectoryList::URL_PATH => 'media'],
+        DirectoryList::STATIC_VIEW => [DirectoryList::URL_PATH => 'static'],
+        DirectoryList::UPLOAD => [DirectoryList::URL_PATH => 'media/upload'],
+    ]
+);
+
 //Patch start
 $driver = new pcov\Clobber\Driver\PHPUnit6();
 $coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver);
-$coverage->filter()->addDirectoryToWhitelist("app/code/Magento/*");
-$coverage->filter()->removeDirectoryFromWhitelist("app/code/Magento/*/Test");
+$coverage->filter()->addDirectoryToWhitelist("../app/code/Magento/*");
+$coverage->filter()->removeDirectoryFromWhitelist("../app/code/Magento/*/Test");
 $testName = "NO_TEST_NAME";
 if (file_exists(__DIR__ . '/CURRENT_TEST')) {
     $testName = file_get_contents(__DIR__ . '/CURRENT_TEST');
@@ -47,7 +49,7 @@ $id = !empty($testName) ? $testName : "NO_TEST_NAME";
 $coverage->start($id);
 //Patch end
 
-$bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $_SERVER);
+$bootstrap = \Magento\Framework\App\Bootstrap::create(BP, $params);
 /** @var \Magento\Framework\App\Http $app */
 $app = $bootstrap->createApplication(\Magento\Framework\App\Http::class);
 $bootstrap->run($app);

@@ -15,8 +15,7 @@ fi
 
 # Use custom pcov enabled index.php files. I think  only pub/index matters, but doing both just
 # to be safe.
-cp index.php html/index.php
-cp pubindex.php html/pub/index.php
+cp index.php html/pub/index.php
 mkdir html/pub/cov
 
 rm -rf html/.git
