@@ -14,8 +14,8 @@ find ${magento_path}/dev ${magento_path}/var ${magento_path}/generated ${magento
 cd ${magento_path} || exit; php /usr/bin/composer install
 
 # pcov clobber
-composer require pcov/clobber
-./vendor/bin/pcov clobber
+php /usr/bin/composer require pcov/clobber
+${magento_path}/vendor/bin/pcov clobber
 
 php bin/magento -n setup:install \
       --base-url="http://magento.local" \
