@@ -49,6 +49,11 @@ echo ""
 # php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_host nginx
 # php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_port 8080
 
+# prepare magento for test
+php ${magento_path}/bin/magento -n config:set cms/wysiwyg/enabled disabled
+php ${magento_path}/bin/magento -n admin/security/admin_account_sharing 1
+php ${magento_path}/bin/magento -n admin/security/use_form_key 0
+
 # Apply configuration changes
 echo -e "--- Applying changes to Magento ---"
 php ${magento_path}/bin/magento -n setup:upgrade
