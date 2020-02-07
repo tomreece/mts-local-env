@@ -70,14 +70,19 @@ cd ${magento_path}/dev/tests/acceptance || exit
 
 if [ ${RUN_BY_GROUP} -eq 1 ]; then
 # Run MFTF tests by group
-echo -e "--- Running MFTF by group ---"
-file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
-while read -r f1 f2
-  do
-  echo -e "--- Running Group: ${group} $f1 $f2 ---"
-  ../../../vendor/bin/codecept run functional $f1 $f2
+# echo -e "--- Running MFTF by group ---"
+# file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
+# while read -r f1 f2
+#   do
+#   echo -e "--- Running Group: ${group} $f1 $f2 ---"
+#   ../../../vendor/bin/codecept run functional $f1 $f2
+#   cp -R tests/_output/allure-results/* /tmp/allure-output
+# done < "$file"
+
+  echo -e "--- Running MFTF ${group} ---"
+  file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
+  ../../../vendor/bin/mftf run:manifest $file
   cp -R tests/_output/allure-results/* /tmp/allure-output
-done < "$file"
 fi
 
 if [ ${RUN_BY_TEST} -eq 1 ]; then
