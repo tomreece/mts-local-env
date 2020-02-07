@@ -43,11 +43,11 @@ curl -s -XPUT "elasticsearch:9200/_template/default_template" -H 'Content-Type: 
 echo ""
 
 # Enable Varnish
-echo -e "--- Enabling Varnish ---"
-php ${magento_path}/bin/magento -n config:set --scope=default --scope-code=0 system/full_page_cache/caching_application 2
-php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/access_list localhost,magento-app,fpm
-php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_host nginx
-php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_port 8080
+# echo -e "--- Enabling Varnish ---"
+# php ${magento_path}/bin/magento -n config:set --scope=default --scope-code=0 system/full_page_cache/caching_application 2
+# php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/access_list localhost,magento-app,fpm
+# php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_host nginx
+# php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_port 8080
 
 # Apply configuration changes
 echo -e "--- Applying changes to Magento ---"

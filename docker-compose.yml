@@ -1,23 +1,15 @@
 version: '3.3'
 services:
-  magento.local:
-    image: 'magento/magento-cloud-docker-varnish:latest'
-    container_name: magento.local
-    environment:
-      - VIRTUAL_HOST=magento.local
-      - VIRTUAL_PORT=80
-    depends_on:
-      - web
-    ports:
-      - '80:80'
   web:
     image: 'magento/magento-cloud-docker-nginx:latest'
-    container_name: web
+    container_name: magento.local
     volumes:
       - './html:/app'
       - './default.conf:/etc/nginx/conf.d/default.conf'
     depends_on:
       - fpm
+    ports:
+      - '80:80'
   elasticsearch:
     image: 'magento/magento-cloud-docker-elasticsearch:6.5'
     container_name: elasticsearch
