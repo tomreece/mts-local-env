@@ -58,6 +58,7 @@ sed -i "s#%SELENIUM_PROTOCOL%#http#g" ${magento_path}/dev/tests/acceptance/tests
 sed -i "s#%SELENIUM_PATH%#/wd/hub#g" ${magento_path}/dev/tests/acceptance/tests/functional.suite.yml
 sed -i 's#--enable-Passthrough#--no-sandbox", "--headless#g' ${magento_path}/dev/tests/acceptance/tests/functional.suite.yml
 sed -i "s#MAGENTO_BASE_URL=.*#MAGENTO_BASE_URL=http://magento.local/#g" ${magento_path}/dev/tests/acceptance/.env; 
+echo -e "\nWAIT_TIMEOUT=90\n" >> ${magento_path}/dev/tests/acceptance/.env;
 rm -f ${magento_path}/vendor/magento/magento2-functional-testing-framework/etc/_envs/*.yml
 chown -R www-data:www-data ${magento_path}/
 # flush Magento cache
