@@ -56,13 +56,14 @@ php ${magento_path}/bin/magento -n config:set admin/security/use_form_key 0
 
 # Apply configuration changes
 echo -e "--- Applying changes to Magento ---"
-php ${magento_path}/bin/magento -n setup:upgrade
+#php ${magento_path}/bin/magento -n setup:upgrade
 echo -e "--- Enable production mode in Magento ---"
 php ${magento_path}/bin/magento -n deploy:mode:set production
 echo -e "--- Flushing Magento Cache ---"
 php ${magento_path}/bin/magento -n cache:flush
 echo -e "--- Reindexing Magento Catalog ---"
-php ${magento_path}/bin/magento -n indexer:reindex catalogsearch_fulltext
+#php ${magento_path}/bin/magento -n indexer:reindex catalogsearch_fulltext
+php ${magento_path}/bin/magento -n indexer:reindex
 
 # Create Allure folders for MFTF
 if [ ! -d /tmp/allure-report ]; then
