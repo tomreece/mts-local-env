@@ -17,6 +17,9 @@ cd ${magento_path} || exit; php /usr/bin/composer install
 php /usr/bin/composer require pcov/clobber
 ${magento_path}/vendor/bin/pcov clobber
 
+# Try an experimental version of MFTF that waits 120 seconds for all element timeout
+php /usr/bin/composer require magento/magento2-functional-testing-framework dev-MQE-1945 --dev
+
 php bin/magento -n setup:install \
       --base-url="http://magento.local" \
       --backend-frontname="admin" \
