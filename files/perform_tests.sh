@@ -29,18 +29,18 @@ chown -R www-data:www-data ${magento_path}
 #php ${magento_path}/bin/magento -n setup:config:set --amqp-host="rabbitmq" --amqp-port="5672" --amqp-user="rabbitmq" --amqp-password="rabbitmq_password" --amqp-virtualhost="/"
 
 # Enable Elasticsearch 6
-#echo -e "--- Enabling Elasticsearch ---"
-#php ${magento_path}/bin/magento -n config:set catalog/search/enable_eav_indexer 1
-#php ${magento_path}/bin/magento -n config:set catalog/search/engine elasticsearch6
-#php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_hostname elasticsearch
-#php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_port 9200
-#php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_index_prefix magento2
-#php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_enable_auth 0
-#php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_timeout 15
+echo -e "--- Enabling Elasticsearch ---"
+php ${magento_path}/bin/magento -n config:set catalog/search/enable_eav_indexer 1
+php ${magento_path}/bin/magento -n config:set catalog/search/engine elasticsearch6
+php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_hostname elasticsearch
+php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_port 9200
+php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_index_prefix magento2
+php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_enable_auth 0
+php ${magento_path}/bin/magento -n config:set catalog/search/elasticsearch6_server_timeout 15
 
 # Disable ES6 replication for automated testing
-#curl -s -XPUT "elasticsearch:9200/_template/default_template" -H 'Content-Type: application/json' -d'{"index_patterns": ["*"],"settings": {"index": {"number_of_replicas": 0}}}'
-#echo ""
+curl -s -XPUT "elasticsearch:9200/_template/default_template" -H 'Content-Type: application/json' -d'{"index_patterns": ["*"],"settings": {"index": {"number_of_replicas": 0}}}'
+echo ""
 
 # Enable Varnish
 # echo -e "--- Enabling Varnish ---"
