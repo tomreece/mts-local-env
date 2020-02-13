@@ -13,8 +13,7 @@ else
     git clone --depth=1 -b ${BRANCH_TAG} https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${ORG}/${REPO} html
 fi
 
-# Use custom pcov enabled index.php files. I think  only pub/index matters, but doing both just
-# to be safe.
+# Use custom pcov enabled index.php file
 cp index.php html/pub/index.php
 mkdir html/pub/cov
 
