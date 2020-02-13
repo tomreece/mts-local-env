@@ -3,7 +3,7 @@
 # Before building Magento, the html folder should exist with Magento already cloned.
 # Specify branch or tag, Github organization, and Github repository below
 # set GITHUB_TOKEN environment variable if you need to use a Github token to access the repository
-BRANCH_TAG=2.3.4
+BRANCH_TAG=2.4-develop
 ORG=magento
 REPO=magento2
 
