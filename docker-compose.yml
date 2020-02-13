@@ -20,9 +20,9 @@ services:
       - fpm
     ports:
       - '80:80'
-  elasticsearch:
-    image: 'magento/magento-cloud-docker-elasticsearch:6.5'
-    container_name: elasticsearch
+  #elasticsearch:
+  #  image: 'magento/magento-cloud-docker-elasticsearch:6.5'
+  #  container_name: elasticsearch
   mariadb:
     image: 'mariadb:10.2'
     container_name: mariadb
