@@ -23,5 +23,8 @@ done
 rm -f install.tar > /dev/null 2>&1
 # Stop containers
 docker-compose down -v
+# Remove any .cov files that got generated for whatever reason. I don't know why there are some generated before tests are run.
+rm html/pub/cov/*
+# Create the install.tar file for step 2
 tar -cf install.tar html
 echo -e "--- Magento install.tar file ready ---"
