@@ -41,8 +41,8 @@ $coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver);
 $coverage->filter()->addDirectoryToWhitelist("../app/code/Magento/*");
 $coverage->filter()->removeDirectoryFromWhitelist("../app/code/Magento/*/Test");
 $testName = "NO_TEST_NAME";
-if (file_exists(__DIR__ . '/CURRENT_TEST')) {
-    $testName = file_get_contents(__DIR__ . '/CURRENT_TEST');
+if (file_exists(__DIR__ . '/../CURRENT_TEST')) {
+    $testName = file_get_contents(__DIR__ . '/../CURRENT_TEST');
 }
 $id = !empty($testName) ? $testName : "NO_TEST_NAME";
 
