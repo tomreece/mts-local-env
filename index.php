@@ -41,6 +41,9 @@ $coverage = new \SebastianBergmann\CodeCoverage\CodeCoverage($driver);
 $coverage->filter()->addDirectoryToWhitelist("../app/code/Magento/*");
 $coverage->filter()->removeDirectoryFromWhitelist("../app/code/Magento/*/Test");
 $testName = "NO_TEST_NAME";
+
+// This PATH assumes that index.php is located in the pub directory.
+// But the MFTF code change generates the CURRENT_TEST file at Magento root.
 if (file_exists(__DIR__ . '/../CURRENT_TEST')) {
     $testName = file_get_contents(__DIR__ . '/../CURRENT_TEST');
 }
