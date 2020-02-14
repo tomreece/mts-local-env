@@ -15,4 +15,5 @@ The code-coverage-two job:
 
 1. Fetches `install.tar` from S3
 2. Runs mftf_single_group.sh
-3. Uploads the resulting `.cov` and `allure-report` files to S3
+3. Merges all `.cov` files into a single file
+4. Uploads the resulting `.cov` and `allure-report` files to S3
