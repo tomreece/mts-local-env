@@ -5,4 +5,4 @@
 echo -e "--- Merging cov files ---"
 
 # Run a specific group
-docker-compose exec -T fpm bash /tmp/files/merge_cov_files.sh
+docker-compose exec -T -e GROUP_NUMBER=${GROUP_NUMBER} fpm bash /tmp/files/merge_cov_files.sh
