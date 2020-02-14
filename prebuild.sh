@@ -16,7 +16,7 @@ fi
 # Use custom pcov enabled index.php file
 cp index.php html/pub/index.php
 # Copy file responsible for setting correct Test Names
-cp test.php html/test.php
+cp test.php html/pub/test.php
 mkdir html/pub/cov
 
 rm -rf html/.git
