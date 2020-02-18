@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "--- Running Group ${GROUP_NUMBER} ---"
+echo -e "--- Preparing to run group ${GROUP_NUMBER} ---"
 
 # Setup Magento
 docker-compose down -v > /dev/null 2>&1

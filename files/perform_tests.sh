@@ -60,7 +60,6 @@ mkdir /tmp/allure-output
 
 # Clean any .cov files that may have been created by using `config:set`
 echo -e "--- Removing any cov files ---"
-ls
 rm pub/cov/*
 
 echo -e "--- Running MFTF ${group} ---"
