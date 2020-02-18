@@ -1,6 +1,5 @@
 import boto3
 
-s3 = boto3.resource('s3')
+client = boto3.client('codebuild')
 
-for bucket in s3.buckets.all():
-    print(bucket.name)
+client.start_build(projectName='code-coverage-two')
