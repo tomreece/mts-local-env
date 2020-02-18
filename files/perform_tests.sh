@@ -1,18 +1,6 @@
 #!/bin/bash
-export TERM='dumb'
+#export TERM='dumb'
 magento_path='/app'
-RUN_BY_GROUP=0
-RUN_BY_TEST=0
-COLOR_BLUE='\e[34;1m'
-COLOR_RESET='\e[0m'
-
-if [ ! -z "${group}" ]; then
-  echo "--- Running with group=${group} ---"
-  RUN_BY_GROUP=1
-else 
-  echo "--- Running by test ---"
-  RUN_BY_TEST=1
-fi
 
 php -v
 
@@ -54,8 +42,6 @@ php ${magento_path}/bin/magento -n config:set cms/wysiwyg/enabled disabled
 php ${magento_path}/bin/magento -n config:set admin/security/admin_account_sharing 1
 php ${magento_path}/bin/magento -n config:set admin/security/use_form_key 0
 
-# Apply configuration changes
-echo -e "--- Applying changes to Magento ---"
 #php ${magento_path}/bin/magento -n setup:upgrade
 echo -e "--- Enable production mode in Magento ---"
 php ${magento_path}/bin/magento -n deploy:mode:set production
@@ -71,43 +57,13 @@ mkdir /tmp/allure-report
 fi
 mkdir /tmp/allure-output
 
-cd ${magento_path}/dev/tests/acceptance || exit
+# Clean any .cov files that may have been created by using `config:set`
+rm ${magento_path}/html/pub/cov/*
 
-
-if [ ${RUN_BY_GROUP} -eq 1 ]; then
-# Run MFTF tests by group
-# echo -e "--- Running MFTF by group ---"
-# file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
-# while read -r f1 f2
-#   do
-#   echo -e "--- Running Group: ${group} $f1 $f2 ---"
-#   ../../../vendor/bin/codecept run functional $f1 $f2
-#   cp -R tests/_output/allure-results/* /tmp/allure-output
-# done < "$file"
-
-  echo -e "--- Running MFTF ${group} ---"
-  file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
-  ../../../vendor/bin/mftf run:manifest $file
-  cp -R tests/_output/allure-results/* /tmp/allure-output
-fi
-
-if [ ${RUN_BY_TEST} -eq 1 ]; then
-# Run MFTF tests by test
-echo -e "--- Running MFTF by test ---"
-file="${magento_path}/mftf-test-list.txt"
-sed -i '/^#/d' ${file}
-  while read -r f1
-    do
-      TESTNAME=$(find  tests/functional/Magento/FunctionalTest/_generated -name ${f1}*Cest.php | head -n 1)
-      if [ "X${TESTNAME}" == "X" ]; then
-        echo -e "\n --- Can't find test: ${f1} --- \n"
-      else	
-        echo -e "--- Running Test: ${TESTNAME} ---"
-        ../../../vendor/bin/codecept run functional ${TESTNAME}
-        cp -R tests/_output/allure-results/* /tmp/allure-output
-     fi
-    done < "$file"
-fi
+echo -e "--- Running MFTF ${group} ---"
+file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
+${magento_path}/vendor/bin/mftf run:manifest $file
+cp -R tests/_output/allure-results/* /tmp/allure-output
 
 # copy allure files out of the container
 echo -e "--- Copying Allure files ---"
