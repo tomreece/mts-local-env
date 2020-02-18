@@ -35,5 +35,15 @@ response2 = client.start_build(
 )
 
 print(response1)
-print("---")
+print('---')
 print(response2)
+print('---')
+
+response3 = client.batch_get_builds(
+    ids=[
+        response1['build']['id'],
+        response2['build']['id']
+    ]
+)
+
+print(response3)
