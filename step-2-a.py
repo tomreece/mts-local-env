@@ -2,7 +2,7 @@ import boto3
 
 client = boto3.client('codebuild')
 
-client.start_build(
+response1 = client.start_build(
     projectName='code-coverage-two',
     environmentVariablesOverride=[
         {
@@ -18,7 +18,7 @@ client.start_build(
     ]
 )
 
-client.start_build(
+response2 = client.start_build(
     projectName='code-coverage-two',
     environmentVariablesOverride=[
         {
@@ -33,3 +33,7 @@ client.start_build(
         }
     ]
 )
+
+print(response1)
+print("---")
+print(response2)
