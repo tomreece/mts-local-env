@@ -61,7 +61,7 @@ mkdir /tmp/allure-output
 rm ${magento_path}/html/pub/cov/*
 
 echo -e "--- Running MFTF ${group} ---"
-file="tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
+file="dev/tests/acceptance/tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
 ${magento_path}/vendor/bin/mftf run:manifest $file
 cp -R tests/_output/allure-results/* /tmp/allure-output
 
