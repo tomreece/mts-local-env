@@ -38,16 +38,17 @@ chown -R www-data:www-data ${magento_path}
 # php ${magento_path}/bin/magento -n config:set system/full_page_cache/varnish/backend_port 8080
 
 # prepare magento for test
+echo -e "--- Preparing Magento for functional testing ---"
 php ${magento_path}/bin/magento -n config:set cms/wysiwyg/enabled disabled
 php ${magento_path}/bin/magento -n config:set admin/security/admin_account_sharing 1
 php ${magento_path}/bin/magento -n config:set admin/security/use_form_key 0
 
 #php ${magento_path}/bin/magento -n setup:upgrade
-echo -e "--- Enable production mode in Magento ---"
+echo -e "--- Enabling production mode ---"
 php ${magento_path}/bin/magento -n deploy:mode:set production
-echo -e "--- Flushing Magento Cache ---"
+echo -e "--- Flushing cache ---"
 php ${magento_path}/bin/magento -n cache:flush
-echo -e "--- Reindexing Magento Catalog ---"
+echo -e "--- Reindexing ---"
 #php ${magento_path}/bin/magento -n indexer:reindex catalogsearch_fulltext
 php ${magento_path}/bin/magento -n indexer:reindex
 
@@ -58,6 +59,8 @@ fi
 mkdir /tmp/allure-output
 
 # Clean any .cov files that may have been created by using `config:set`
+echo -e "--- Removing any cov files ---"
+ls
 rm pub/cov/*
 
 echo -e "--- Running MFTF ${group} ---"
