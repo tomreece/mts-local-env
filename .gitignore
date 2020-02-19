@@ -2,3 +2,5 @@ html
 allure-report
 install.tar
 venv
+vendor
+
