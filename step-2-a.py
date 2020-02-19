@@ -1,6 +1,10 @@
 import boto3
+import json
+import time
 
 client = boto3.client('codebuild')
+
+print("Triggering build 1")
 
 response1 = client.start_build(
     projectName='code-coverage-two',
@@ -18,6 +22,8 @@ response1 = client.start_build(
     ]
 )
 
+print("Triggering build 2")
+
 response2 = client.start_build(
     projectName='code-coverage-two',
     environmentVariablesOverride=[
@@ -28,22 +34,36 @@ response2 = client.start_build(
         },
         {
             'name': 'GROUP_NUMBER',
-            'value': '25',
+            'value': '11',
             'type': 'PLAINTEXT'
         }
     ]
 )
 
-print(response1)
-print('---')
-print(response2)
-print('---')
+done = False
 
-response3 = client.batch_get_builds(
-    ids=[
-        response1['build']['id'],
-        response2['build']['id']
-    ]
-)
+while not done:
+    print("Polling...")
+    response = client.batch_get_builds(
+        ids=[
+            response1['build']['id'],
+            response2['build']['id']
+        ]
+    )
 
-print(response3)
+    print(response)
+
+    allDone = True
+
+    for build in response['builds']:
+        status = build['buildStatus']
+        if status == 'IN_PROGRESS':
+            allDone = False
+            break
+
+    if allDone:
+        break
+
+    time.sleep(30)
+
+print("ALL DONE!")
