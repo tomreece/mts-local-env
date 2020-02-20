@@ -60,8 +60,8 @@ fi
 mkdir /tmp/allure-output
 
 # Clean any .cov files that may have been created by using `config:set`
-echo -e "--- Removing any cov files ---"
-rm pub/cov/*
+#echo -e "--- Removing any cov files ---"
+#rm pub/cov/*
 
 echo -e "--- Running MFTF ${group} ---"
 file="dev/tests/acceptance/tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
