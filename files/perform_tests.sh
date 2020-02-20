@@ -16,6 +16,7 @@ chown -R www-data:www-data ${magento_path}
 #echo -e "--- Enabling RabbitMQ ---"
 #php ${magento_path}/bin/magento -n setup:config:set --amqp-host="rabbitmq" --amqp-port="5672" --amqp-user="rabbitmq" --amqp-password="rabbitmq_password" --amqp-virtualhost="/"
 
+# todo we need to get elasticsearch working
 # Enable Elasticsearch 6
 #echo -e "--- Enabling Elasticsearch ---"
 #php ${magento_path}/bin/magento -n config:set catalog/search/enable_eav_indexer 1
