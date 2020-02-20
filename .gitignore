@@ -3,4 +3,4 @@ allure-report
 install.tar
 venv
 vendor
-
+.vscode
