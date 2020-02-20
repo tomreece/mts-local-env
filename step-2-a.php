@@ -10,6 +10,18 @@ class GroupsRunner {
     private $codebuild;
     private $builds;
 
+    /**
+     * GroupsRunner constructor.
+     *
+     * Notice we don't pass credentials to the CodeBuildClient class. These are picked up from environment variables.
+     * Set these environment variables in your IDE or your shell before running this script:
+     *   AWS_ACCESS_KEY_ID
+     *   AWS_SESSION_TOKEN
+     *   AWS_SECRET_ACCESS_KEY
+     *
+     * @param string $prevBuildId The id of the previous build (step 2). Example: 7e375873-1fbe-48d6-b555-80b90b768423
+     * @param string $numGroups The number of groups to start.
+     */
     function __construct($prevBuildId, $numGroups)
     {
         $this->prevBuildId = $prevBuildId;
@@ -20,6 +32,9 @@ class GroupsRunner {
         ]);
     }
 
+    /**
+     * The main function
+     */
     public function main()
     {
         $this->startAllGroups();
@@ -28,6 +43,9 @@ class GroupsRunner {
         print('All done!');
     }
 
+    /**
+     * Triggers multiple code-coverage-two jobs
+     */
     private function startAllGroups()
     {
         for ($i = 1; $i <= $this->numGroups; $i++) {
@@ -47,6 +65,9 @@ class GroupsRunner {
         }
     }
 
+    /**
+     * Checks the statuses of jobs that were triggered
+     */
     private function pollBuilds() {
         $numTotal = count($this->builds);
 
@@ -80,9 +101,11 @@ class GroupsRunner {
     }
 }
 
+// Two command line arguments
 $prevBuildId = $argv[1];
 $numGroups = $argv[2];
 
+// Help message
 if ($prevBuildId === null || $numGroups === null) {
     print("How to use this script:\n");
     print("    argument 1 should be the previous build id\n");
@@ -92,5 +115,6 @@ if ($prevBuildId === null || $numGroups === null) {
     exit();
 }
 
+// Run the main loop
 $groupRunner = new GroupsRunner($prevBuildId, $numGroups);
 $groupRunner->main();
