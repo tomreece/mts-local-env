@@ -37,10 +37,14 @@ class GroupsRunner {
      */
     public function main()
     {
+        $start = microtime(true);
+
         $this->startAllGroups();
         $this->pollBuilds();
 
-        print('All done!');
+        $stop = microtime(true);
+
+        print("All done! Finished in " . round((($stop - $start) / 60), 2) . " minutes.\n");
     }
 
     /**
@@ -62,6 +66,11 @@ class GroupsRunner {
                     ]
                 ]
             ]);
+
+            print("Triggered group$i\n");
+
+            // Wait to avoid rate limiting
+            sleep(10);
         }
     }
 
