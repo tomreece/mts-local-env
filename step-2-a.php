@@ -80,6 +80,17 @@ class GroupsRunner {
     }
 }
 
-// todo -- pass these in as arguments to the script
-$groupRunner = new GroupsRunner('7e375873-1fbe-48d6-b555-80b90b768423', 2);
+$prevBuildId = $argv[1];
+$numGroups = $argv[2];
+
+if ($prevBuildId === null || $numGroups === null) {
+    print("How to use this script:\n");
+    print("    argument 1 should be the previous build id\n");
+    print("    argument 2 should be the number of groups to run\n");
+    print("    example:\n");
+    print("        php step-2-a.php 7e375873-1fbe-48d6-b555-80b90b768423 2\n");
+    exit();
+}
+
+$groupRunner = new GroupsRunner($prevBuildId, $numGroups);
 $groupRunner->main();
