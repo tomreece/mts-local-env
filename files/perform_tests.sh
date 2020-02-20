@@ -66,7 +66,7 @@ rm pub/cov/*
 echo -e "--- Running MFTF ${group} ---"
 file="dev/tests/acceptance/tests/functional/Magento/FunctionalTest/_generated/groups/${group}.txt"
 ${magento_path}/vendor/bin/mftf run:manifest $file
-cp -R tests/_output/allure-results/* /tmp/allure-output
+cp -R ${magento_path}/dev/tests/acceptance/tests/_output/allure-results/* /tmp/allure-output
 
 # copy allure files out of the container
 echo -e "--- Copying Allure files ---"
