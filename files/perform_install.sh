@@ -19,7 +19,7 @@ cd ${magento_path} || exit; php /usr/bin/composer install
 
 # todo: we need to add these features to MFTF instead of hacking on a branch
 # Try an experimental version of MFTF that waits 120 seconds for all element timeout
-php /usr/bin/composer require magento/magento2-functional-testing-framework dev-MQE-1945 --dev
+#php /usr/bin/composer require magento/magento2-functional-testing-framework dev-MQE-1945 --dev
 
 php bin/magento -n setup:install \
       --base-url="http://magento.local" \
