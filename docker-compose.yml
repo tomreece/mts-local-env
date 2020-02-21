@@ -46,7 +46,7 @@ services:
       - MAGENTO_DATABASE_USER=magento
       - MAGENTO_DATABASE_PASSWORD=magento_password
       - MAGENTO_DATABASE_NAME=magento
-      - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip redis xsl sodium pcov'
+      - 'PHP_EXTENSIONS=bcmath bz2 calendar exif gd gettext intl mysqli pcntl pdo_mysql soap sockets sysvmsg sysvsem sysvshm opcache zip redis xsl sodium'
     volumes:
       - './html:/app'
       - './files:/tmp/files'
