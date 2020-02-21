@@ -14,8 +14,8 @@ find ${magento_path}/dev ${magento_path}/var ${magento_path}/generated ${magento
 cd ${magento_path} || exit; php /usr/bin/composer install
 
 # pcov clobber
-#php /usr/bin/composer require pcov/clobber
-#${magento_path}/vendor/bin/pcov clobber
+php /usr/bin/composer require pcov/clobber
+${magento_path}/vendor/bin/pcov clobber
 
 # todo: we need to add these features to MFTF instead of hacking on a branch
 # Try an experimental version of MFTF that waits 120 seconds for all element timeout
@@ -62,7 +62,6 @@ sed -i "s#%SELENIUM_PROTOCOL%#http#g" ${magento_path}/dev/tests/acceptance/tests
 sed -i "s#%SELENIUM_PATH%#/wd/hub#g" ${magento_path}/dev/tests/acceptance/tests/functional.suite.yml
 sed -i 's#--enable-Passthrough#--no-sandbox", "--headless#g' ${magento_path}/dev/tests/acceptance/tests/functional.suite.yml
 sed -i "s#MAGENTO_BASE_URL=.*#MAGENTO_BASE_URL=http://magento.local/#g" ${magento_path}/dev/tests/acceptance/.env; 
-#echo -e "\nWAIT_TIMEOUT=90\n" >> ${magento_path}/dev/tests/acceptance/.env;
 rm -f ${magento_path}/vendor/magento/magento2-functional-testing-framework/etc/_envs/*.yml
 chown -R www-data:www-data ${magento_path}/
 # flush Magento cache
