@@ -1,6 +1,5 @@
 <?php
-
-require 'vendor/autoload.php';
+namespace Pipeline\Steps;
 
 use Aws\CodeBuild\CodeBuildClient;
 
@@ -39,7 +38,7 @@ class GroupsRunner {
     {
         $start = microtime(true);
 
-        $this->startAllGroups();
+        $this->startStep();
         $this->pollBuilds();
 
         $stop = microtime(true);
@@ -50,7 +49,7 @@ class GroupsRunner {
     /**
      * Triggers multiple code-coverage-two jobs
      */
-    private function startAllGroups()
+    private function startStep()
     {
         for ($i = 1; $i <= $this->numGroups; $i++) {
             $this->builds[] = $this->codebuild->startBuild([
@@ -73,41 +72,6 @@ class GroupsRunner {
             sleep(10);
         }
     }
-
-    /**
-     * Checks the statuses of jobs that were triggered
-     */
-    private function pollBuilds() {
-        $numTotal = count($this->builds);
-
-        while(true) {
-            print('Polling...');
-
-            $statuses = $this->codebuild->batchGetBuilds([
-                'ids' => array_map(function($build) { return $build['build']['id']; }, $this->builds)
-            ]);
-
-            $allDone = true;
-            $numInProgress = 0;
-
-            foreach ($statuses['builds'] as $build) {
-                $status = $build['buildStatus'];
-                if ($status === 'IN_PROGRESS') {
-                    $allDone = false;
-                    $numInProgress += 1;
-                }
-            }
-
-            $numFinished = $numTotal - $numInProgress;
-            print("$numFinished out of $numTotal jobs are finished.\n");
-
-            if ($allDone) {
-                break;
-            }
-
-            sleep(30);
-        }
-    }
 }
 
 // Two command line arguments
@@ -125,5 +89,5 @@ if ($prevBuildId === null || $numGroups === null) {
 }
 
 // Run the main loop
-$groupRunner = new GroupsRunner($prevBuildId, $numGroups);
-$groupRunner->main();
+//$groupRunner = new GroupsRunner($prevBuildId, $numGroups);
+//$groupRunner->main();

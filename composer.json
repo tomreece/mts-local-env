@@ -2,5 +2,11 @@
     "name": "magento/code-coverage-step-two-a",
     "require": {
         "aws/aws-sdk-php": "^3.133"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Pipeline\\": "src/Pipeline"
+        }
     }
 }
