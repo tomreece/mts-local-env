@@ -73,21 +73,3 @@ class GroupsRunner {
         }
     }
 }
-
-// Two command line arguments
-$prevBuildId = $argv[1];
-$numGroups = $argv[2];
-
-// Help message
-if ($prevBuildId === null || $numGroups === null) {
-    print("How to use this script:\n");
-    print("    argument 1 should be the previous build id\n");
-    print("    argument 2 should be the number of groups to run\n");
-    print("    example:\n");
-    print("        php step-2-a.php 7e375873-1fbe-48d6-b555-80b90b768423 2\n");
-    exit();
-}
-
-// Run the main loop
-//$groupRunner = new GroupsRunner($prevBuildId, $numGroups);
-//$groupRunner->main();

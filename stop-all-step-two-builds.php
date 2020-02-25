@@ -9,30 +9,37 @@ $codebuild = new CodeBuildClient([
     'region' => 'us-east-1'
 ]);
 
-$builds = $codebuild->listBuildsForProject([
-    'projectName' => 'code-coverage-two'
-]);
+$done = false;
+$nextToken = null;
 
-foreach ($builds['ids'] as $buildId) {
-    print("Stopping ${buildId}\n");
-
-    $response = $codebuild->stopBuild([
-        'id' => $buildId
+while (!$done) {
+    $currentBuilds = $codebuild->listBuildsForProject([
+        'projectName' => 'code-coverage-two',
+        'nextToken' => $nextToken
     ]);
 
-    // Wait to avoid rate limiting
-    sleep(1);
+//    foreach ($currentBuilds['ids'] as $buildId) {
+//        print("Stopping ${buildId}\n");
+//
+//        $response = $codebuild->stopBuild([
+//            'id' => $buildId
+//        ]);
+//
+//        // Wait to avoid rate limiting
+//        sleep(1);
+//    }
+
+    print("Deleting a batch of builds\n");
+    var_dump($currentBuilds['ids']);
+
+    $response = $codebuild->batchDeleteBuilds([
+        'ids' => $currentBuilds['ids']
+    ]);
+
+    $nextToken = $currentBuilds['nextToken'];
+    if (is_null($nextToken)) {
+        $done = true;
+    }
 }
-
-print("Deleting all builds\n");
-
-// We need to wait a bit to make sure everything was stopped before trying to delete.
-sleep(30);
-
-$response = $codebuild->batchDeleteBuilds([
-    'ids' => $builds['ids']
-]);
-
-//print($response);
 
 exit();
