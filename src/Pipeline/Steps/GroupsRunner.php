@@ -3,7 +3,7 @@ namespace Pipeline\Steps;
 
 use Aws\CodeBuild\CodeBuildClient;
 
-class GroupsRunner {
+class GroupsRunner extends Step{
     private $prevBuildId;
     private $numGroups;
     private $codebuild;
@@ -44,6 +44,11 @@ class GroupsRunner {
         $stop = microtime(true);
 
         print("All done! Finished in " . round((($stop - $start) / 60), 2) . " minutes.\n");
+
+        $buildIdToArtifact = [];
+        foreach ($this->builds as $build) {
+            $buildIdToArtifact[$build["build"]["id"]] = $build["build"]["artifacts"]["location"];
+        }
     }
 
     /**

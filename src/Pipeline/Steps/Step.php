@@ -1,9 +1,16 @@
 <?php
 namespace Pipeline\Steps;
 
-
+/**
+ * Class Step
+ * @package Pipeline\Steps
+ *
+ * Contains common functions for steps that involve running Codebuild jobs
+ */
 abstract class Step
 {
+    protected $codebuild;
+    protected $builds;
     /**
      * The main function, returns array of info required for other jobs
      */

@@ -4,9 +4,6 @@ namespace Pipeline\Steps;
 use Aws\CodeBuild\CodeBuildClient;
 
 class MagentoInstallRunner extends Step {
-    private $codebuild;
-    private $builds;
-
     /**
      * MagentoInstallRunner constructor.
      *
@@ -33,9 +30,11 @@ class MagentoInstallRunner extends Step {
         $this->startStep();
         $this->pollBuilds();
         $stop = microtime(true);
-
         print("All done! Finished in " . round((($stop - $start) / 60), 2) . " minutes.\n");
-        return ["step_one_id" => $this->builds[0]["id"]];
+        return [
+            "step_one_id" => $this->builds[0]["build"]["id"],
+            "step_one_artifacts_arn" => $this->builds[0]["build"]["artifacts"]["location"]
+        ];
     }
 
     /**
